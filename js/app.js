@@ -2,8 +2,7 @@
  * Create a list that holds all of your cards
  */
 
-
-/*
+ /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
@@ -36,3 +35,29 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+// const mainHeading = document.querySelector('h1');
+// mainHeading.addEventListener('click', function () {
+//   console.log('The heading was clicked!');
+// });
+
+// const restart = document.querySelector('.restart');
+// restart.addEventListener('click', function(){
+//   //console.log('RESTART GAME!')
+//   location.reload();
+// });
+
+// const deck = document.querySelector('.deck');
+// deck.addEventListener('click', function(evt){
+//   console.log('The deck was clicked!'+ evt.target.firstElementChild);
+// });
+
+// .firstElementChild
+
+let allCards = document.querySelectorAll('.card');
+allCards.forEach(function(card){
+    card.addEventListener('click', function(e){
+      console.log(e)
+      card.classList.add('open', 'show');
+    })
+});
