@@ -41,11 +41,10 @@ function shuffle(array) {
 //   console.log('The heading was clicked!');
 // });
 
-// const restart = document.querySelector('.restart');
-// restart.addEventListener('click', function(){
-//   //console.log('RESTART GAME!')
-//   location.reload();
-// });
+const restart = document.querySelector('.restart');
+restart.addEventListener('click', function(){
+  location.reload();
+});
 
 // const deck = document.querySelector('.deck');
 // deck.addEventListener('click', function(evt){
