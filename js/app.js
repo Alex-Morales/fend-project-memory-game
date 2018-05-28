@@ -46,17 +46,20 @@ restart.addEventListener('click', function(){
   location.reload();
 });
 
-// const deck = document.querySelector('.deck');
-// deck.addEventListener('click', function(evt){
-//   console.log('The deck was clicked!'+ evt.target.firstElementChild);
-// });
-
-// .firstElementChild
 
 let allCards = document.querySelectorAll('.card');
+let openCards = [];
+
 allCards.forEach(function(card){
-    card.addEventListener('click', function(e){
-      console.log(e)
+      card.addEventListener('click', function(e){
+      openCards.push(card);
       card.classList.add('open', 'show');
-    })
+      if(openCards.length == 2){
+        setTimeout(function(){openCards.forEach(function(card){
+          card.classList.remove('open', 'show');
+          });
+        openCards = [];
+      },500);
+      }
+    });
 });
