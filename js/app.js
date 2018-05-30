@@ -1,6 +1,19 @@
 /*
  * Create a list that holds all of your cards
  */
+//card names taken from starter code
+let cards = ['fa-diamond', 'fa-diamond',
+            'fa-paper-plane-o', 'fa-paper-plane-o',
+            'fa-anchor', 'fa-anchor',
+            'fa-bolt', 'fa-bolt',
+            'fa-cube', 'fa-cube',
+            'fa-leaf', 'fa-leaf',
+            'fa-bicycle', 'fa-bicycle',
+            'fa-bomb', 'fa-bomb'];
+
+function generateCard(card){
+  return  `<li class="card"><i class="fa ${card}"></i></li>`;
+}
 
  /*
  * Display the cards on the page
@@ -8,6 +21,17 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+function startGame(){
+  let deck = document.querySelector('.deck');
+  let cardHTML = shuffle(cards).map(function(card){
+    return generateCard(card);
+  });
+
+  deck.innerHTML = cardHTML.join('');
+
+}
+
+startGame();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -43,7 +67,7 @@ function shuffle(array) {
 
 const restart = document.querySelector('.restart');
 restart.addEventListener('click', function(){
-  location.reload();
+location.reload();
 });
 
 
@@ -52,14 +76,22 @@ let openCards = [];
 
 allCards.forEach(function(card){
       card.addEventListener('click', function(e){
+      if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
       openCards.push(card);
       card.classList.add('open', 'show');
+
+      //CHECK IF THEY MATCH
+      // if(openCards[0].children().classList.contains('open') == openCards[1].children().classList.contains('open')){
+      //   console.log('TWO MATCH!')
+      // }
+      //WHEN CARDS DON'T MATCH THEY GO AWAY HERE
       if(openCards.length == 2){
         setTimeout(function(){openCards.forEach(function(card){
           card.classList.remove('open', 'show');
           });
         openCards = [];
-      },500);
+      },1000);
       }
+    }
     });
 });
