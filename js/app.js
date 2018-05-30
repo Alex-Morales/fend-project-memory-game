@@ -21,14 +21,18 @@ function generateCard(card){
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+let moves = 0;
+let moveCounter = document.querySelector('.moves');
+moveCounter.innerText = 0;
+
+
 function startGame(){
   let deck = document.querySelector('.deck');
   let cardHTML = shuffle(cards).map(function(card){
     return generateCard(card);
   });
-
   deck.innerHTML = cardHTML.join('');
-
+  moves = 0;
 }
 
 startGame();
@@ -74,9 +78,10 @@ location.reload();
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
 
+
 allCards.forEach(function(card){
       card.addEventListener('click', function(e){
-      if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
+      if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match') && openCards.length<2){
       openCards.push(card);
       card.classList.add('open', 'show');
 
@@ -96,9 +101,11 @@ allCards.forEach(function(card){
           card.classList.remove('open', 'show');
           });
         openCards = [];
-      },800);}
+        },800);}
 
       }
+      moves += 1;
+      moveCounter.innerText = moves;
     }
     });
 });
