@@ -25,14 +25,13 @@ let moves = 0;
 let moveCounter = document.querySelector('.moves');
 moveCounter.innerText = 0;
 
-
 function startGame(){
   let deck = document.querySelector('.deck');
   let cardHTML = shuffle(cards).map(function(card){
     return generateCard(card);
   });
   deck.innerHTML = cardHTML.join('');
-  moves = 0;
+  //moves = 0;
 }
 
 startGame();
@@ -64,20 +63,15 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-// const mainHeading = document.querySelector('h1');
-// mainHeading.addEventListener('click', function () {
-//   console.log('The heading was clicked!');
-// });
-
 const restart = document.querySelector('.restart');
-restart.addEventListener('click', function(){
-location.reload();
+      restart.addEventListener('click', function(){
+      location.reload();
 });
 
 
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
-
+let allStars = document.querySelectorAll('.fa-star')
 
 allCards.forEach(function(card){
       card.addEventListener('click', function(e){
@@ -104,8 +98,26 @@ allCards.forEach(function(card){
         },800);}
 
       }
+      //COUNT MOVES
       moves += 1;
       moveCounter.innerText = moves;
+      //RATINGS
+      if (moves>15) {
+        allStars[2].classList.add('fa-star-o');
+        allStars[2].classList.remove('fa-star');
+        // allStars.forEach(function(star){
+        //   star.classList.add('fa-star-o');
+        //   star.classList.remove('fa-star');
+        // })
+      }
+      if (moves>30) {
+        allStars[1].classList.add('fa-star-o');
+        allStars[1].classList.remove('fa-star');
+      }
+      if (moves>45) {
+        allStars[0].classList.add('fa-star-o');
+        allStars[0].classList.remove('fa-star');
+      }
     }
     });
 });
