@@ -144,7 +144,7 @@ allCards.forEach(function(card){
         myTimer();
       }
     }
-    if(matchCards.length == 2){
+    if(matchCards.length == 16){
       const modalContent = document.querySelector('.modal-content');
       const modal = document.getElementById('myModal'); // Get the modal
       modalContent.innerHTML = `<span class="close">&times;</span><p>CONGRATULATIONS!</p><p>You've matched all the cards using ${moves} moves in ${minutesLabel.innerText}:${secondsLabel.innerText}!</p>`;

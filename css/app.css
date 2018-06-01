@@ -92,6 +92,7 @@ h1 {
 }
 
 .timer{
+  margin-left: 20px;
   text-align: center;
   display: inline-block;
 }
