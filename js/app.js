@@ -1,7 +1,6 @@
 /*
  * Create a list that holds all of your cards
  */
-//card names taken from starter code
 let cards = ['fa-diamond', 'fa-diamond',
             'fa-paper-plane-o', 'fa-paper-plane-o',
             'fa-anchor', 'fa-anchor',
@@ -9,12 +8,11 @@ let cards = ['fa-diamond', 'fa-diamond',
             'fa-cube', 'fa-cube',
             'fa-leaf', 'fa-leaf',
             'fa-bicycle', 'fa-bicycle',
-            'fa-bomb', 'fa-bomb'];
+            'fa-bomb', 'fa-bomb']; //card names taken from starter code
 
 function generateCard(card){
   return  `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
-
  /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -31,7 +29,6 @@ function startGame(){
     return generateCard(card);
   });
   deck.innerHTML = cardHTML.join('');
-  //moves = 0;
 }
 
 startGame();
@@ -66,12 +63,34 @@ function shuffle(array) {
 const restart = document.querySelector('.restart');
       restart.addEventListener('click', function(){
       location.reload();
-});
+    });
 
 
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
 let allStars = document.querySelectorAll('.fa-star')
+let matchCards = [];
+let minutesLabel = document.querySelector('.minutes');
+let secondsLabel = document.querySelector('.seconds');
+let totalSeconds = 0;
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+function myTimer(){
+  setInterval(setTime, 1000);
+}
 
 allCards.forEach(function(card){
       card.addEventListener('click', function(e){
@@ -88,6 +107,9 @@ allCards.forEach(function(card){
           openCards[1].classList.add('match');
           openCards[1].classList.add('open');
           openCards[1].classList.add('show');
+          matchCards.push(openCards[0]);
+          matchCards.push(openCards[1]);
+
           openCards = [];
         }
         //WHEN CARDS DON'T MATCH THEY GO AWAY HERE
@@ -118,6 +140,27 @@ allCards.forEach(function(card){
         allStars[0].classList.add('fa-star-o');
         allStars[0].classList.remove('fa-star');
       }
+      if(moves == 1){
+        myTimer();
+      }
     }
+    if(matchCards.length == 2){
+      const modalContent = document.querySelector('.modal-content');
+      const modal = document.getElementById('myModal'); // Get the modal
+      modalContent.innerHTML = `<span class="close">&times;</span><p>CONGRATULATIONS!</p><p>You've matched all the cards using ${moves} moves in ${minutesLabel.innerText}:${secondsLabel.innerText}!</p>`;
+      modal.style.display = "block";
+      const span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+        }
+    };
     });
+
 });
